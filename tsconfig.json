@@ -2,7 +2,10 @@
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
     "baseUrl": "./packages",
-    "composite": false
+    "composite": false,
+    "module": "commonjs",
+    "target": "es6",
+    "jsx": "react"
   },
   "include": [
     "packages/**/src/**/*"

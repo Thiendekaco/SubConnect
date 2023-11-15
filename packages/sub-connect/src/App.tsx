@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import EvmWalletInfo from '@subwallet/sub-connect/pages/EvmWalletInfo';
-import { WalletContextProvider } from '@subwallet/sub-connect/providers/WalletContextProvider';
 import React from 'react';
 import { HashRouter, Route, Routes } from 'react-router-dom';
 
@@ -17,7 +16,6 @@ require('./App.scss');
 
 export function App () {
   return (
-    <WalletContextProvider>
       <HashRouter>
         <Routes>
           <Route
@@ -43,6 +41,5 @@ export function App () {
           </Route>
         </Routes>
       </HashRouter>
-    </WalletContextProvider>
   );
 }

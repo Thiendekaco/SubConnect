@@ -3,18 +3,23 @@
 
 // Some code of this file refer to https://github.com/MetaMask/test-dapp/blob/main/src/index.js
 import { keccak256 } from '@ethersproject/keccak256';
-import { RequestArguments } from '@metamask/providers/dist/BaseProvider';
 import { Maybe } from '@metamask/providers/dist/utils';
 import { METHOD_MAP } from '@subwallet/sub-connect/pages/methods';
-import { windowReload } from '@subwallet/sub-connect/utils/window';
 import { Button, Input, message, Select } from 'antd';
+import type  { WalletState }  from '@subwallet_connect/core'
 // eslint-disable-next-line camelcase
 import { recoverPersonalSignature, recoverTypedSignature, recoverTypedSignature_v4, recoverTypedSignatureLegacy, TypedData, TypedMessage } from 'eth-sig-util';
-import React, { useCallback, useContext, useEffect, useState } from 'react';
-import Web3 from 'web3';
-import { AbstractProvider } from 'web3-core';
+import React, { useCallback, useEffect, useState } from 'react';
+import { EIP1193Provider } from '@subwallet_connect/common'
+import {useConnectWallet, useSetChain} from "@subwallet_connect/react";
+import {useNavigate} from "react-router-dom";
 
-import { WalletContext } from '../contexts';
+
+export type RequestArguments  ={
+   method: string
+   params?: unknown[] | undefined
+}
+
 
 const { Option } = Select;
 
@@ -22,6 +27,9 @@ const { Option } = Select;
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const chainList = require('./evmChains.json') as NetworkInfo[];
 const chain81Index = chainList.findIndex((n) => n.chainId === 81);
+
+
+
 
 if (chain81Index) {
   chainList[chain81Index] = {
@@ -181,7 +189,9 @@ const SIGN_METHODS = {
 require('./EvmWalletInfo.scss');
 
 function EvmWalletInfo (): React.ReactElement {
-  const wallet = useContext(WalletContext).evmWallet;
+  const [{wallet},] = useConnectWallet()
+  const [{chains}, setChain] = useSetChain()
+  const navigate = useNavigate();
 
   const [accounts, setAccounts] = useState<string[]>([]);
   const [availableAccounts, setAvailableAccounts] = useState<string[]>([]);
@@ -189,9 +199,6 @@ function EvmWalletInfo (): React.ReactElement {
   const [network, setNetwork] = useState<NetworkInfo | undefined>(undefined);
   const [balance, setBalance] = useState<number | undefined>(0);
   const [warningNetwork, setWarningNetwork] = useState<string | undefined>(undefined);
-
-  const [lastestBlock, setLastestBlock] = useState<number | undefined>(undefined);
-
   // transaction
   const [transactionToAddress, setTransactionToAddress] = useState('');
   const [transactionAmount, setTransactionAmount] = useState<number>(0);
@@ -203,69 +210,82 @@ function EvmWalletInfo (): React.ReactElement {
   const [signMethod, setSignMethod] = useState('personalSign');
   const [signatureValidation, setSignatureValidation] = useState('');
 
+
+  useEffect(() => {
+    if(wallet?.type=== "substrate")  navigate('/wallet-info');
+  }, [wallet]);
+
   const makeRequest = useCallback(
-    function <T> (args: RequestArguments, callback: (rs: Maybe<T>) => void, errorCallback?: (e: Error) => void): void {
-      wallet?.request<T>(args)
-        .then(callback)
+    function <T> (args: RequestArguments, callback: (rs: any) => void, errorCallback?: (e: Error) => void): void {
+      (wallet?.provider as EIP1193Provider).request(args)
+        .then((value) => callback(value))
         .catch(async (e: Error) => {
           errorCallback && errorCallback(e);
           // @ts-ignore
           // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
           await message.error(`${e.code}: ${e.message}`);
-        });
+        })
     },
     [wallet]
   );
 
+  useEffect(() => {
+    const _chainId = chains[0].id
+    if (_chainId) {
+      const cid = parseInt(_chainId.toString(), 16);
+
+      setChainId(cid);
+      // eslint-disable-next-line eqeqeq
+      const chain = chainList.find((network) => network.chainId == cid);
+
+      setNetwork(chain);
+    }
+  }, [chains[0]]);
+
   const getBalance = useCallback(
-    (addresses: string[], network: NetworkInfo) => {
+    (wallet : WalletState) => {
       let total = 0;
-
-      addresses.forEach((address: string) => {
-        makeRequest<string>({ method: 'eth_getBalance', params: [address, 'latest'] }, (balance) => {
-          if (typeof balance === 'string' && balance.startsWith('0x')) {
-            const balVal = network && parseInt(balance, 16);
-
-            if (balVal) {
-              total += balVal;
-              setBalance(total / (10 ** network.nativeCurrency.decimals));
-            }
-          }
-        });
+      wallet.accounts.forEach((account) => {
+        total += account.balance ? parseInt(Object.values(account.balance as { [s: string]: string; })[0]) : 0
+        setBalance(total)
       });
     },
     [makeRequest]
   );
+  const switchNetwork = useCallback((args : RequestArguments) =>{
+    const { params} = args
+    if(params){
+      setChain({chainId : (params as any[])[0].chainId as string, chainNamespace : 'evm'})
+    }
+  },[wallet, chains])
 
   const generateRequestButton = useCallback(
-    (label: string, args: RequestArguments, callback?: (rs: Maybe<unknown>) => void, disabled?: boolean) => (<Button
-      className='sub-wallet-btn sub-wallet-btn-small-size'
-      disabled={disabled}
-      key={label}
-      // eslint-disable-next-line react/jsx-no-bind
-      onClick={() => {
-        makeRequest(args, callback || console.log);
-      }}
-    >
-      {label}
-    </Button>),
+    (label: string, args: RequestArguments, callback?: (rs: Maybe<unknown>) => void, disabled?: boolean) =>
+      (
+        <Button
+          className='sub-wallet-btn sub-wallet-btn-small-size'
+          disabled={disabled}
+          key={label}
+          // eslint-disable-next-line react/jsx-no-bind
+          onClick={() => {
+            label.includes("Add") || label.includes("Switch") ? switchNetwork(args):makeRequest(args, callback || console.log);
+          }}
+        >
+          {label}
+        </Button>)
+    ,
     [makeRequest]
   );
 
   useEffect(() => {
     const init = async () => {
-      if (!wallet) {
+      if (!wallet || !wallet.provider) {
         return;
       }
 
-      await wallet.enable();
-
-      const w3 = wallet?.extension && new Web3(wallet.extension as AbstractProvider);
-
-      const _chainId = await wallet?.request<string>({ method: 'eth_chainId' });
-
+      const _chainId = wallet.chains[0].id
       if (_chainId) {
-        const cid = parseInt(_chainId, 16);
+        const cid = parseInt(_chainId.toString(), 16);
 
         setChainId(cid);
         // eslint-disable-next-line eqeqeq
@@ -273,44 +293,22 @@ function EvmWalletInfo (): React.ReactElement {
 
         setNetwork(chain);
 
-        const _accounts = await wallet?.request<string[]>({ method: 'eth_accounts' });
-
-        console.debug(_accounts);
-
-        _accounts && setAccounts(_accounts as string[]);
+        const _accounts = wallet.accounts;
+        _accounts && setAccounts(_accounts.map(({address})=> address));
 
         if (_accounts && _accounts[0]) {
-          getBalance(_accounts as string[], chain as NetworkInfo);
+          getBalance(wallet);
 
-          setInterval(() => {
-            getBalance(_accounts as string[], chain as NetworkInfo);
-          }, 30000);
-
-          w3?.eth.subscribe('newBlockHeaders')
-            .on('connected', function (subscriptionId) {
-              console.log('Subscribe network with id ' + subscriptionId);
-            })
-            .on('data', function (blockHeader) {
-              setLastestBlock(blockHeader.number);
-            })
-            .on('error', console.error);
         }
       } else {
         setWarningNetwork('Please select at least one button below to switch to EVM network');
       }
-
-      wallet?.extension?.on('chainChanged', (chainId) => {
-        windowReload();
-      });
-
-      wallet?.extension?.on('accountsChanged', () => {
-        windowReload();
-      });
     };
 
     init().catch(console.error);
   }
   , [getBalance, makeRequest, wallet]);
+
 
   const _onChangeTransactionToAddress = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -460,7 +458,7 @@ function EvmWalletInfo (): React.ReactElement {
       <div className='evm-wallet-info-page__section'>
         <div className='evm-wallet-info-page__text'>Basic Information</div>
         <div>Network: {network && <span className='account-item__content'>{network?.name} ({chainId})</span>}</div>
-        <div>Status: <span className='account-item__content'>{(wallet?.extension?.isConnected() && chainId) ? 'Connected' : 'Disconnected'}</span></div>
+        <div>Status: <span className='account-item__content'>{(wallet && chainId) ? 'Connected' : 'Disconnected'}</span></div>
         <div>Current Address: <span className='account-item__content font-mono'>{accounts.join(', ')}</span></div>
         <div>Balance: <span className='account-item__content'>{balance} {network?.nativeCurrency.symbol}</span></div>
       </div>
@@ -510,8 +508,8 @@ function EvmWalletInfo (): React.ReactElement {
             {generateRequestButton('Switch to Mumbai', METHOD_MAP.switchToMumbaiNetwork, undefined, chainId === 80001)}
           </div>
           <div className='evm-wallet-info__button_row'>
-            {generateRequestButton('Add Boba Testnet', METHOD_MAP.addBobaTestnet, undefined, chainId === 1297)}
-            {generateRequestButton('Switch to Boba Testnet', METHOD_MAP.switchToBobaTestnet, undefined, chainId === 1297)}
+            {generateRequestButton('Add Boba Testnet', METHOD_MAP.addBobaTestnet, undefined, chainId === 120)}
+            {generateRequestButton('Switch to Boba Testnet', METHOD_MAP.switchToBobaTestnet, undefined, chainId === 120)}
           </div>
         </div>
       </div>
@@ -622,7 +620,6 @@ function EvmWalletInfo (): React.ReactElement {
       </div>
       <div className='evm-wallet-info-page__section'>
         <div className='evm-wallet-info-page__text'>Connect provider with web3.js</div>
-        <div>Latest block: <span className='account-item__content'>{lastestBlock}</span></div>
       </div>
     </div>
   </div>;

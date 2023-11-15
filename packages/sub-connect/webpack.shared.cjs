@@ -137,6 +137,12 @@ module.exports = (entry, alias = {}, useSplitChunk = false) => {
           ]
         },
         {
+          test: /\.(js|mjs|ts|tsx)$/,
+          resolve: {
+            fullySpecified: false,
+          },
+        },
+        {
           test: /\.(sa|sc|c)ss$/i,
           use: [
             // Creates `style` nodes from JS strings
@@ -222,17 +228,18 @@ module.exports = (entry, alias = {}, useSplitChunk = false) => {
         ...alias,
         'react/jsx-runtime': require.resolve('react/jsx-runtime')
       }),
-      extensions: ['.js', '.jsx', '.ts', '.tsx'],
+      extensions: ['.js', '.jsx', '.ts', '.tsx', '.*.js' , '.*.mjs'],
       fallback: {
         crypto: require.resolve('crypto-browserify'),
         path: require.resolve('path-browserify'),
         stream: require.resolve('stream-browserify'),
         os: require.resolve('os-browserify/browser'),
         http: require.resolve('stream-http'),
+        buffer: require.resolve('buffer'),
         https: require.resolve('https-browserify'),
         assert: require.resolve('assert'),
+        url: require.resolve('url'),
         zlib: false,
-        url: false
       }
     },
     watch: false

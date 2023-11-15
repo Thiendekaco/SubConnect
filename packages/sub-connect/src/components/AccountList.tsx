@@ -5,18 +5,19 @@
 // eslint-disable-next-line header/header
 import { EditOutlined } from '@ant-design/icons';
 import { Button, message } from 'antd';
-import React, { useCallback, useContext } from 'react';
+import React, { useCallback } from 'react';
 
-import { WalletContext } from '../contexts';
+import {useConnectWallet} from "@subwallet_connect/react";
+import {SubstrateProvider} from "@subwallet_connect/common";
 
 require('./AccountList.scss');
 
 function AccountList (): React.ReactElement {
-  const walletContext = useContext(WalletContext);
+  const [{wallet},] = useConnectWallet();
 
   const signDummy = useCallback(
-    (address: string) => {
-      const signer = walletContext.wallet?.signer;
+    async (address: string) => {
+      const signer = wallet?.signer;
 
       if (signer && signer.signRaw) {
         const signPromise = signer.signRaw({ address, data: 'This is dummy message', type: 'bytes' });
@@ -27,11 +28,13 @@ function AccountList (): React.ReactElement {
           message.success({ content: 'Sign Successfully!', key });
         }).catch((error) => {
           console.error(error);
-          message.warn({ content: 'Sign Failed or Cancelled!', key });
+          message.warning({ content: 'Sign Failed or Cancelled!', key });
         });
+      }else{
+          await (wallet?.provider as SubstrateProvider).signDummy(address, 'hello sign dummy', undefined)
       }
     },
-    [walletContext.wallet?.signer]
+    [wallet?.signer]
   );
 
   const onSignClicked = useCallback(
@@ -44,7 +47,7 @@ function AccountList (): React.ReactElement {
   );
 
   return (<div className={'account-list'}>
-    {walletContext.accounts.map((acc) => (
+    {wallet?.accounts.map((acc, index) => (
       <div
         className={'account-item'}
         key={acc.address}
@@ -52,7 +55,7 @@ function AccountList (): React.ReactElement {
         <div className='info'>
           <div className='account-item-info'>
             <span className='account-item__title'>Name:</span>
-            <span className='account-item__content'>{acc.name}</span>
+            <span className='account-item__content'>Account { index + 1 }</span>
           </div>
           <div className='account-item-info'>
             <span className='account-item__title'>Address:</span>

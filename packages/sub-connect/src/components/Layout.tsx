@@ -3,30 +3,31 @@
 
 import { useLocalStorage } from '@subwallet/sub-connect/hooks/useLocalStorage';
 import { Switch } from 'antd';
-import React, { useCallback, useContext, useEffect } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
+import React, { useCallback, useEffect } from 'react';
+import {Outlet, useNavigate, useParams} from 'react-router-dom';
 
-import { WalletContext } from '../contexts';
-import SelectWalletModal from './SelectWalletModal';
 import WalletHeader from './WalletHeader';
+import {useConnectWallet} from "@subwallet_connect/react";
 
 require('./Layout.scss');
 
 function Layout (): React.ReactElement<null> {
-  const walletContext = useContext(WalletContext);
+  const [{ wallet}] = useConnectWallet();
   const [theme, setTheme] = useLocalStorage('sub-wallet-theme', 'dark');
   const navigate = useNavigate();
 
+
   useEffect(() => {
-    if (!walletContext.wallet && !walletContext.evmWallet) {
+    if (!wallet) {
       navigate('/welcome');
     }
 
-    const isDark = theme === 'dark';
 
+    const isDark = theme === 'dark';
     document.body.style.backgroundColor = isDark ? '#020412' : '#FFF';
+
     document.body.className = isDark ? 'dark-theme' : 'light-theme';
-  }, [theme, navigate, walletContext]);
+  }, [theme, navigate, wallet]);
 
   const _onChangeTheme = useCallback(() => {
     setTheme(theme === 'dark' ? 'light' : 'dark');
@@ -37,14 +38,13 @@ function Layout (): React.ReactElement<null> {
     <div className={`main-content ${theme === 'dark' ? '-dark' : '-light'}`}>
       <Switch
         checkedChildren='Light'
-        className={(!!walletContext.wallet || !!walletContext.evmWallet) ? 'sub-wallet-switch-theme with-header' : 'sub-wallet-switch-theme'}
+        className={(!!wallet) ? 'sub-wallet-switch-theme with-header' : 'sub-wallet-switch-theme'}
         defaultChecked={theme === 'light'}
         onChange={_onChangeTheme}
         unCheckedChildren='Dark'
       />
-      <WalletHeader visible={!!walletContext.wallet || !!walletContext.evmWallet} />
+      <WalletHeader visible={!!wallet} />
       <Outlet />
-      <SelectWalletModal theme={theme} />
     </div>
   </div>);
 }

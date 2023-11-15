@@ -1,21 +1,27 @@
 // Copyright 2019-2022 @subwallet/sub-connect authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { Wallet } from '@subwallet/wallet-connect/types';
-import React, { useContext } from 'react';
+import React, {useEffect} from 'react';
 
 import AccountList from '../components/AccountList';
 import WalletMetadata from '../components/WalletMetadata';
-import { WalletContext } from '../contexts';
+import {useNavigate} from "react-router-dom";
+import {useConnectWallet} from "@subwallet_connect/react";
 
 require('./WalletInfo.scss');
 
 function WalletInfo (): React.ReactElement {
-  const walletContext = useContext(WalletContext);
+  const navigate = useNavigate()
+  const [ { wallet}] = useConnectWallet()
+
+
+  useEffect(() => {
+    if(wallet?.type=== "evm")  navigate('/evm-wallet-info');
+  }, [wallet]);
 
   return <div className={'boxed-container'}>
     <div className={'wallet-info-page'}>
-      <div className='wallet-info-page__text'>Version: {(walletContext?.wallet as Wallet)?.extension?.version}</div>
+      <div className='wallet-info-page__text'>Version: {'something'}</div>
       <div className='wallet-info-page__text'>Account List</div>
       <AccountList />
       <div className='wallet-info-page__text'>Metadata</div>

@@ -3,41 +3,40 @@
 
 /* eslint-disable @typescript-eslint/no-floating-promises */
 import { PlusCircleOutlined } from '@ant-design/icons';
-import { Button, message } from 'antd';
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import {Button, message} from 'antd';
+import React, {useCallback, useEffect, useState} from 'react';
+import { useConnectWallet } from "@subwallet_connect/react";
+import { InjectedMetadata, InjectedMetadataKnown, MetadataDef } from "@polkadot/extension-inject/types";
 
-import { InjectedMetadataKnown, MetadataDef } from '@polkadot/extension-inject/types';
-
-import { WalletContext } from '../contexts';
 
 require('./WalletMetadata.scss');
 
 function WalletMetadata (): React.ReactElement {
-  const walletContext = useContext(WalletContext);
+  const [{ wallet }] = useConnectWallet()
   const [injectedMetas, setInjectedMetas] = useState<InjectedMetadataKnown[]>([]);
 
   const loadMetadata = useCallback(
     () => {
-      const metadata = walletContext.wallet?.metadata;
-
+      const metadata = wallet?.metadata;
+      console.log(metadata)
       if (metadata) {
-        metadata.get().then((rs) => {
+        (metadata as InjectedMetadata).get().then((rs) => {
           setInjectedMetas(rs);
         });
       }
     },
-    [walletContext.wallet?.metadata]
+    [wallet]
   );
 
   useEffect(() => {
     setTimeout(() => {
       loadMetadata();
     }, 300);
-  }, [loadMetadata, walletContext.wallet]);
+  }, [loadMetadata, wallet]);
 
   const addMetadata = useCallback(
     () => {
-      const metadata = walletContext.wallet?.metadata;
+      const metadata = wallet?.metadata;
 
       if (metadata) {
         const newMetaDef: MetadataDef = {
@@ -55,18 +54,18 @@ function WalletMetadata (): React.ReactElement {
         const key = 'add-metadata';
 
         message.loading({ content: 'Adding Metadata', key });
-        metadata.provide(newMetaDef)
+          (metadata as InjectedMetadata).provide(newMetaDef)
           .then((rs) => {
             message.success({ content: 'Add Metadata Successfully!', key });
             loadMetadata();
           })
           .catch((error) => {
             console.error(error);
-            message.warn({ content: 'Add Metadata Failed or Cancelled!', key });
+            message.warning({ content: 'Add Metadata Failed or Cancelled!', key });
           });
       }
     },
-    [loadMetadata, walletContext.wallet?.metadata]
+    [loadMetadata, wallet?.metadata]
   );
 
   return (<div className={'wallet-metadata'}>

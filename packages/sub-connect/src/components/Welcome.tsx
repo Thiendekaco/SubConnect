@@ -2,33 +2,34 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import {Button} from 'antd';
-import React, {useContext, useEffect} from 'react';
+import React, { useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
 
-import {OpenSelectWallet, WalletContext} from '../contexts';
+import {useConnectWallet} from "@subwallet_connect/react";
 
 require('./Welcome.scss');
 
 function Welcome (): React.ReactElement {
-  const selectWallet = useContext(OpenSelectWallet);
-  const walletContext = useContext(WalletContext);
+
   const navigate = useNavigate();
+  const [{ wallet }, connect] = useConnectWallet()
 
   useEffect(() => {
-    if (walletContext.wallet && walletContext.walletType === 'substrate') {
+    if (wallet?.type === 'substrate') {
       navigate('/wallet-info');
-    } else if (walletContext.evmWallet && walletContext.walletType === 'evm') {
+    } else if(wallet?.type === 'evm' ){
       navigate('/evm-wallet-info');
     }
-  }, [navigate, walletContext]);
+  }, [wallet]);
+
 
   return (<div className={'welcome-wrapper'}>
     <div className={'welcome-content'}>
       <div className='welcome-content__text'>Welcome to SubWallet Connect</div>
       <Button
         className='sub-wallet-btn sub-wallet-btn-normal-size'
-        onClick={selectWallet.open}
-      >Select Wallet</Button>
+        onClick={() => connect()}
+      >Connect wallet</Button>
     </div>
   </div>);
 }

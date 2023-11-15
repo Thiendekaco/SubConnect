@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 // Some code of this file refer to https://github.com/MetaMask/test-dapp/blob/main/src/index.js
-import { RequestArguments } from '@metamask/providers/dist/BaseProvider';
+import {RequestArguments} from "@subwallet/sub-connect/pages/EvmWalletInfo";
 
 export const METHOD_MAP: Record<string, RequestArguments> = {
   addMoonbeamNetwork: {
@@ -149,9 +149,9 @@ export const METHOD_MAP: Record<string, RequestArguments> = {
     method: 'wallet_addEthereumChain',
     params: [
       {
-        chainId: '0x511',
+        chainId: '0x120',
         rpcUrls: ['https://endpoints.omniatech.io/v1/matic/mumbai/public'],
-        chainName: 'Boba Testnet',
+        chainName: 'Boba ',
         nativeCurrency: { name: 'BOBA', decimals: 18, symbol: 'BOBA' },
         blockExplorerUrls: ['https://mumbai.polygonscan.com']
       }
@@ -161,7 +161,7 @@ export const METHOD_MAP: Record<string, RequestArguments> = {
     method: 'wallet_switchEthereumChain',
     params: [
       {
-        chainId: '0x511' // 81
+        chainId: '0x120' // 81
       }
     ]
   },

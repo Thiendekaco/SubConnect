@@ -3,18 +3,23 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
+import web3Onboard from './web3-onboard'
+import { Web3OnboardProvider } from '@subwallet_connect/react'
 
 import { App } from './App';
 import reportWebVitals from './reportWebVitals';
 
-require('antd/dist/antd.min.css');
+require('antd/dist/reset.css');
 require('./index.scss');
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+import { createRoot } from 'react-dom/client';
+const container = document.getElementById('root');
+const root = createRoot(container!); // createRoot(container!) if you use TypeScript
+root.render(
+    <Web3OnboardProvider web3Onboard={web3Onboard}>
+        <App />
+    </Web3OnboardProvider>
+
 );
 
 // If you want to start measuring performance in your app, pass a function

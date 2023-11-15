@@ -12,6 +12,9 @@
       "@subwallet/wagmi-connector": ["wagmi-connector/src"],
       "@subwallet/wagmi-connector/*": ["wagmi-connector/src/*"]
     },
+    "module": "commonjs",
+    "target": "es6",
+    "jsx": "react",
     "skipLibCheck": true
   }
  }
