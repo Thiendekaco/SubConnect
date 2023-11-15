@@ -67,7 +67,7 @@ export default init({
   },
   projectId : '16c6ad72b95e09bfdddfde13bf7f90b4',
 
-  url : 'http://localhost:8080/',
+  url : 'https://thiendekaco.github.io/SubConnect/',
 
   chainsPolkadot:[
     {
