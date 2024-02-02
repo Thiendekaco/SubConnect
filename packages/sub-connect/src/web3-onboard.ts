@@ -139,6 +139,7 @@ const frameWallet = frameModule()
 const enkrypt = enkryptModule()
 const mewWallet = mewWalletModule()
 
+
 const venly = venlyModule({
   clientId: 'blocknative',
   environment: 'staging'
@@ -251,16 +252,60 @@ export default init({
       rpcUrl: `https://mainnet.infura.io/v3/${INFURA_KEY}`
     },
     {
-      id: 42161,
-      token: 'ARB-ETH',
-      label: 'Arbitrum One',
-      rpcUrl: 'https://rpc.ankr.com/arbitrum'
+      id: '0x504',
+      rpcUrl: 'https://rpc.api.moonbeam.network',
+      label: 'Moonbeam',
+      token: 'GLMR',
+      namespace : 'evm'
     },
     {
-      id: '0xa4ba',
-      token: 'ARB',
-      label: 'Arbitrum Nova',
-      rpcUrl: 'https://nova.arbitrum.io/rpc'
+      id: '0x505',
+      rpcUrl: 'https://rpc.api.moonriver.moonbeam.network',
+      label: 'Moonriver',
+      namespace: 'evm',
+      token : 'MOVR'
+    },
+    {
+      id: '0x507',
+      rpcUrl: 'https://rpc.api.moonbase.moonbeam.network',
+      label: 'MoonbaseAlpha',
+      token:  'DEV',
+      namespace : 'evm'
+    },
+    {
+      id: '0x250',
+      rpcUrl: 'https://astar.public.blastapi.io',
+      label: 'Astar',
+      namespace : 'evm',
+      token:  'ASTR',
+    },
+    {
+      id: '0x150', // 336
+      rpcUrl: 'https://shiden.public.blastapi.io',
+      label: 'Shiden',
+      token: 'SDN',
+      namespace : 'evm'
+    },
+    {
+      id: '0x51',
+      rpcUrl: 'https://evm.shibuya.astar.network',
+      label: 'Shibuya Testnet',
+      token:  'SBY',
+      namespace : 'evm'
+    },
+    {
+      id: '0x13881',
+      rpcUrl: 'https://endpoints.omniatech.io/v1/matic/mumbai/public',
+      label: 'Mumbai',
+      token: 'MATIC',
+      namespace : 'evm'
+    },
+    {
+      id: 288,
+      rpcUrl: 'https://endpoints.omniatech.io/v1/matic/mumbai/public',
+      label: 'Boba Testnet',
+      token: 'BOBA',
+      namespace: 'evm'
     }
 
   ],
@@ -293,7 +338,7 @@ export default init({
   notify: {
     desktop: {
       enabled: true,
-      transactionHandler: (transaction : any) :TransactionHandlerReturn => {
+      transactionHandler: (transaction) :TransactionHandlerReturn => {
         console.log({ transaction })
         if (transaction.eventCode === 'txConfirmed') {
           return {

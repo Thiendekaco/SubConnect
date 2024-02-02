@@ -29,6 +29,12 @@
     "test": "polkadot-dev-run-test --detectOpenHandles'",
     "watch": "cd packages/sub-connect && yarn webpack-dev-server --config webpack.watch.cjs --mode development"
   },
+  "dependencies": {
+    "@subwallet_connect/blocto": "^1.0.3",
+    "@subwallet_connect/cede-store": "^1.0.2",
+    "@subwallet_connect/ledgerpolkadot": "^1.0.4",
+    "@subwallet_connect/tallyho": "^1.0.1"
+  },
   "devDependencies": {
     "@polkadot/dev": "^0.66.28",
     "gh-pages": "^4.0.0",
@@ -43,11 +49,5 @@
     "@polkadot/util": "^10.1.2",
     "@types/node": "^16.7.13",
     "typescript": "^5.2.2"
-  },
-  "dependencies": {
-    "@subwallet_connect/blocto": "^1.0.3",
-    "@subwallet_connect/cede-store": "^1.0.2",
-    "@subwallet_connect/ledgerpolkadot": "^1.0.4",
-    "@subwallet_connect/tallyho": "^1.0.1"
   }
 }
