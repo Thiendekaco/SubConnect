@@ -63,12 +63,13 @@ const injected = injectedModule({
 })
 const phantom = phantomModule()
 const walletConnect = walletConnectModule({
-  projectId: 'd4a987cb0d1a746dbffd38890458e65c',
-  dappUrl: 'https://www.onboard.blocknative.com'
+  projectId: '9faafb317e7de852a7821e5e3042e804',
+  dappUrl: 'https://thiendekaco.github.io/SubConnect'
 })
 
 const walletConnectPolkadot = walletConnectPolkadotModule({
-  projectId: 'd4a987cb0d1a746dbffd38890458e65c',
+  projectId: '9faafb317e7de852a7821e5e3042e804',
+  dappUrl: 'https://thiendekaco.github.io/SubConnect'
 })
 const coinbaseWallet = coinbaseModule()
 const metamaskSDKWallet = metamaskSDK({
@@ -161,7 +162,7 @@ export default init({
       enabled: true
     }
   },
-  projectId : 'd4a987cb0d1a746dbffd38890458e65c',
+  projectId : '9faafb317e7de852a7821e5e3042e804',
 
 
   chainsPolkadot:[
