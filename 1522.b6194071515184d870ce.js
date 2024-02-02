@@ -1,0 +1,1 @@
+(("undefined"!=typeof self?self:this).webpackChunk_subwallet_sub_connect=("undefined"!=typeof self?self:this).webpackChunk_subwallet_sub_connect||[]).push([[1522,5477,3779],{75477:()=>{},61720:()=>{}}]);
