@@ -2,9 +2,10 @@
 import injectedModule from '@subwallet_connect/injected-wallets'
 import { init } from '@subwallet_connect/react'
 import walletConnectModule from '@subwallet_connect/walletconnect'
+import walletConnectPolkadotModule from '@subwallet_connect/walletconnect-polkadot'
 import coinBaseModule from "@subwallet_connect/coinbase"
 import cedeStoreWalletModule from '@subwallet_connect/cede-store'
-import keepkeyModule from '@subwallet_connect/keepkey'
+import keepkeyModule from "@subwallet_connect/keepkey";
 import ledgerModule from '@subwallet_connect/ledger'
 import ledgerPolkadot from "@subwallet_connect/ledgerpolkadot";
 import blocktoModule from  "@subwallet_connect/blocto"
@@ -15,7 +16,27 @@ import infinityWalletModule from '@subwallet_connect/infinity-wallet'
 import trustModule from '@subwallet_connect/trust'
 import sequenceModule from '@subwallet_connect/sequence'
 import {TransactionHandlerReturn} from "@subwallet_connect/core/dist/types";
-
+import xdefiWalletModule from '@subwallet_connect/xdefi'
+import fortmaticModule from '@subwallet_connect/fortmatic'
+import frameModule from '@subwallet_connect/frame'
+import safeModule from '@subwallet_connect/gnosis'
+import keystoneModule from '@subwallet_connect/keystone'
+import portisModule from '@subwallet_connect/portis'
+import torusModule from '@subwallet_connect/torus'
+import trezorModule from '@subwallet_connect/trezor'
+import coinbaseModule from '@subwallet_connect/coinbase'
+import magicModule from '@subwallet_connect/magic'
+import web3authModule from '@subwallet_connect/web3auth'
+import dcentModule from '@subwallet_connect/dcent'
+import zealModule from '@subwallet_connect/zeal'
+import enkryptModule from '@subwallet_connect/enkrypt'
+import mewWalletModule from '@subwallet_connect/mew-wallet'
+import uauthModule from '@subwallet_connect/uauth'
+import frontierModule from '@subwallet_connect/frontier'
+import arcanaAuthModule from '@subwallet_connect/arcana-auth'
+import venlyModule from '@subwallet_connect/venly'
+import bitgetModule from '@subwallet_connect/bitget'
+import walletLinkModule from "@subwallet_connect/walletlink";
 
 // Example key • Replace with your infura key
 const INFURA_KEY = '302750fdd8644da3b50aa6daa0b89336'
@@ -26,6 +47,12 @@ const keepkey = keepkeyModule()
 const ledgerPolkadot_ = ledgerPolkadot();
 const coinBase = coinBaseModule()
 const blocto = blocktoModule()
+const xdefi = xdefiWalletModule()
+const walletLink = walletLinkModule()
+const fortmatic = fortmaticModule({
+  apiKey: 'pk_test_886ADCAB855632AA'
+})
+
 const injected = injectedModule({
   custom: [
     // include custom injected wallet modules here
@@ -36,9 +63,14 @@ const injected = injectedModule({
 })
 const phantom = phantomModule()
 const walletConnect = walletConnectModule({
-  projectId: '1a159ea1c91a73bdc7e69e971c3e824e',
+  projectId: 'd4a987cb0d1a746dbffd38890458e65c',
   dappUrl: 'https://www.onboard.blocknative.com'
 })
+
+const walletConnectPolkadot = walletConnectPolkadotModule({
+  projectId: 'd4a987cb0d1a746dbffd38890458e65c',
+})
+const coinbaseWallet = coinbaseModule()
 const metamaskSDKWallet = metamaskSDK({
   options: {
     extensionOnly: false,
@@ -57,17 +89,79 @@ const infinityWallet = infinityWalletModule()
 const sequence = sequenceModule({
   appName: 'My app'
 })
+const portis = portisModule({
+  apiKey: 'b2b7586f-2b1e-4c30-a7fb-c2d1533b153b'
+})
 
+
+const web3auth = web3authModule({
+  clientId:
+    'DJuUOKvmNnlzy6ruVgeWYWIMKLRyYtjYa9Y10VCeJzWZcygDlrYLyXsBQjpJ2hxlBO9dnl8t9GmAC2qOP5vnIGo'
+})
+
+const arcanaAuth = arcanaAuthModule({
+  clientID: 'xar_test_c9c3bc702eb13255c58dab0e74cfa859711c13cb'
+})
+
+const torus = torusModule()
+const keystone = keystoneModule()
+const safe = safeModule()
+const zeal = zealModule()
+const frontier = frontierModule()
+
+const trezorOptions = {
+  email: 'test@test.com',
+  appUrl: 'https://www.blocknative.com',
+  consecutiveEmptyAccountThreshold: 10
+  // containerElement: '#sample-container-el'
+}
+const trezor = trezorModule(trezorOptions)
+
+const uauthOptions = {
+  clientID: 'a25c3a65-a1f2-46cc-a515-a46fe7acb78c',
+  walletConnectProjectId: 'f6bd6e2911b56f5ac3bc8b2d0e2d7ad5',
+  redirectUri: 'http://localhost:8080/',
+  scope:
+    'openid wallet email:optional humanity_check:optional profile:optional social:optional'
+}
+const uauth = uauthModule(uauthOptions)
+
+const magic = magicModule({
+  apiKey: 'pk_live_02207D744E81C2BA'
+  // userEmail: 'test@test.com'
+  // userEmail is optional - if user has already logged in and/or session is still active a login modal will not appear
+  // for more info see the @web3-onboard/magic docs
+})
+
+const dcent = dcentModule()
+const bitget = bitgetModule()
+const frameWallet = frameModule()
+const enkrypt = enkryptModule()
+const mewWallet = mewWalletModule()
+
+const venly = venlyModule({
+  clientId: 'blocknative',
+  environment: 'staging'
+})
 
 
 export default init({
+  theme: "dark",
   connect : {
     autoConnectLastWallet : true,
     autoConnectAllPreviousWallet : true
   },
-  projectId : '16c6ad72b95e09bfdddfde13bf7f90b4',
+  accountCenter: {
+    desktop : {
+      enabled: true,
+      minimal : true
+    },
+    mobile: {
+      enabled: true
+    }
+  },
+  projectId : 'd4a987cb0d1a746dbffd38890458e65c',
 
-  url : 'https://thiendekaco.github.io/SubConnect/',
 
   chainsPolkadot:[
     {
@@ -88,7 +182,7 @@ export default init({
       id: 'afdc188f45c71dacbaa0b62e16a91f72' ,
       token: 'HDX',
       namespace: 'substrate',
-      label: 'Hydradx',
+      label: 'HydraDX',
       rpcUrl: 'hydradx.api.subscan.io',
       decimal : 12
     },
@@ -106,19 +200,41 @@ export default init({
   // An array of wallet modules that you would like to be presented to the user to select from when connecting a wallet.
   wallets: [
     metamaskSDKWallet,
-    trust,
-    infinityWallet,
-    tallyho,
+    walletConnectPolkadot,
     injected,
-    walletConnect,
-    cedeStore,
     ledger,
-    keepkey,
-    sequence,
-    ledgerPolkadot_,
-    blocto,
     coinBase,
-    phantom
+    trezor,
+    walletConnect,
+    coinbaseWallet,
+    phantom,
+    safe,
+    trust,
+    tallyho,
+    bitget,
+    enkrypt,
+    infinityWallet,
+    mewWallet,
+    walletLink,
+    keepkey,
+    keystone,
+    ledgerPolkadot_,
+    magic,
+    fortmatic,
+    portis,
+    torus,
+    dcent,
+    sequence,
+    uauth,
+    web3auth,
+    zeal,
+    frontier,
+    xdefi,
+    frameWallet,
+    cedeStore,
+    arcanaAuth,
+    blocto,
+    venly
   ],
   // An array of Chains that your app supports
   chains: [
@@ -135,77 +251,23 @@ export default init({
       rpcUrl: `https://mainnet.infura.io/v3/${INFURA_KEY}`
     },
     {
-      id: '0x504',
-      rpcUrl: 'https://rpc.api.moonbeam.network',
-      label: 'Moonbeam',
-      token: 'GLMR',
-      namespace : 'evm'
+      id: 42161,
+      token: 'ARB-ETH',
+      label: 'Arbitrum One',
+      rpcUrl: 'https://rpc.ankr.com/arbitrum'
     },
     {
-      id: '0x505',
-      rpcUrl: 'https://rpc.api.moonriver.moonbeam.network',
-      label: 'Moonriver',
-      namespace: 'evm',
-      token : 'MOVR'
-    },
-    {
-      id: '0x507',
-      rpcUrl: 'https://rpc.api.moonbase.moonbeam.network',
-      label: 'MoonbaseAlpha',
-      token:  'DEV',
-      namespace : 'evm'
-    },
-    {
-      id: '0x250',
-      rpcUrl: 'https://astar.public.blastapi.io',
-      label: 'Astar',
-      namespace : 'evm',
-      token:  'ASTR',
-    },
-    {
-      id: '0x150', // 336
-      rpcUrl: 'https://shiden.public.blastapi.io',
-      label: 'Shiden',
-      token: 'SDN',
-      namespace : 'evm'
-    },
-    {
-      id: '0x51',
-      rpcUrl: 'https://evm.shibuya.astar.network',
-      label: 'Shibuya Testnet',
-      token:  'SBY',
-      namespace : 'evm'
-    },
-    {
-      id: '0x13881',
-      rpcUrl: 'https://endpoints.omniatech.io/v1/matic/mumbai/public',
-      label: 'Mumbai',
-      token: 'MATIC',
-      namespace : 'evm'
-    },
-    {
-      id: 288,
-      rpcUrl: 'https://endpoints.omniatech.io/v1/matic/mumbai/public',
-      label: 'Boba Testnet',
-      token: 'BOBA',
-      namespace: 'evm'
+      id: '0xa4ba',
+      token: 'ARB',
+      label: 'Arbitrum Nova',
+      rpcUrl: 'https://nova.arbitrum.io/rpc'
     }
 
   ],
   appMetadata: {
     // The name of your dApp
     name: 'SubWallet Connect',
-    // SVG icon string, with height or width (whichever is larger) set to 100% or a valid image URL
-    icon: '<svg width="283" height="64" viewBox="0 0 283 64" fill="none" \n' +
-        '    xmlns="http://www.w3.org/2000/svg">\n' +
-        '    <path d="M141.04 16c-11.04 0-19 7.2-19 18s8.96 18 20 18c6.67 0 12.55-2.64 16.19-7.09l-7.65-4.42c-2.02 2.21-5.09 3.5-8.54 3.5-4.79 0-8.86-2.5-10.37-6.5h28.02c.22-1.12.35-2.28.35-3.5 0-10.79-7.96-17.99-19-17.99zm-9.46 14.5c1.25-3.99 4.67-6.5 9.45-6.5 4.79 0 8.21 2.51 9.45 6.5h-18.9zM248.72 16c-11.04 0-19 7.2-19 18s8.96 18 20 18c6.67 0 12.55-2.64 16.19-7.09l-7.65-4.42c-2.02 2.21-5.09 3.5-8.54 3.5-4.79 0-8.86-2.5-10.37-6.5h28.02c.22-1.12.35-2.28.35-3.5 0-10.79-7.96-17.99-19-17.99zm-9.45 14.5c1.25-3.99 4.67-6.5 9.45-6.5 4.79 0 8.21 2.51 9.45 6.5h-18.9zM200.24 34c0 6 3.92 10 10 10 4.12 0 7.21-1.87 8.8-4.92l7.68 4.43c-3.18 5.3-9.14 8.49-16.48 8.49-11.05 0-19-7.2-19-18s7.96-18 19-18c7.34 0 13.29 3.19 16.48 8.49l-7.68 4.43c-1.59-3.05-4.68-4.92-8.8-4.92-6.07 0-10 4-10 10zm82.48-29v46h-9V5h9zM36.95 0L73.9 64H0L36.95 0zm92.38 5l-27.71 48L73.91 5H84.3l17.32 30 17.32-30h10.39zm58.91 12v9.69c-1-.29-2.06-.49-3.2-.49-5.81 0-10 4-10 10V51h-9V17h9v9.2c0-5.08 5.91-9.2 13.2-9.2z" fill="#000"/>\n' +
-        '</svg>',
-    // Optional wide format logo (ie icon and text) to be displayed in the sidebar of connect modal. Defaults to icon if not provided
-    logo: '<svg width="283" height="64" viewBox="0 0 283 64" fill="none" \n' +
-        '    xmlns="http://www.w3.org/2000/svg">\n' +
-        '    <path d="M141.04 16c-11.04 0-19 7.2-19 18s8.96 18 20 18c6.67 0 12.55-2.64 16.19-7.09l-7.65-4.42c-2.02 2.21-5.09 3.5-8.54 3.5-4.79 0-8.86-2.5-10.37-6.5h28.02c.22-1.12.35-2.28.35-3.5 0-10.79-7.96-17.99-19-17.99zm-9.46 14.5c1.25-3.99 4.67-6.5 9.45-6.5 4.79 0 8.21 2.51 9.45 6.5h-18.9zM248.72 16c-11.04 0-19 7.2-19 18s8.96 18 20 18c6.67 0 12.55-2.64 16.19-7.09l-7.65-4.42c-2.02 2.21-5.09 3.5-8.54 3.5-4.79 0-8.86-2.5-10.37-6.5h28.02c.22-1.12.35-2.28.35-3.5 0-10.79-7.96-17.99-19-17.99zm-9.45 14.5c1.25-3.99 4.67-6.5 9.45-6.5 4.79 0 8.21 2.51 9.45 6.5h-18.9zM200.24 34c0 6 3.92 10 10 10 4.12 0 7.21-1.87 8.8-4.92l7.68 4.43c-3.18 5.3-9.14 8.49-16.48 8.49-11.05 0-19-7.2-19-18s7.96-18 19-18c7.34 0 13.29 3.19 16.48 8.49l-7.68 4.43c-1.59-3.05-4.68-4.92-8.8-4.92-6.07 0-10 4-10 10zm82.48-29v46h-9V5h9zM36.95 0L73.9 64H0L36.95 0zm92.38 5l-27.71 48L73.91 5H84.3l17.32 30 17.32-30h10.39zm58.91 12v9.69c-1-.29-2.06-.49-3.2-.49-5.81 0-10 4-10 10V51h-9V17h9v9.2c0-5.08 5.91-9.2 13.2-9.2z" fill="#000"/>\n' +
-        '</svg>',
-    // The description of your app
+
     description: 'Demo app for SubWalletConnect V2',
     // The url to a getting started guide for app
     gettingStartedGuide: 'http://mydapp.io/getting-started',
@@ -231,7 +293,7 @@ export default init({
   notify: {
     desktop: {
       enabled: true,
-      transactionHandler: (transaction) :TransactionHandlerReturn => {
+      transactionHandler: (transaction : any) :TransactionHandlerReturn => {
         console.log({ transaction })
         if (transaction.eventCode === 'txConfirmed') {
           return {

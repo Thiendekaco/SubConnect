@@ -4,18 +4,18 @@
 import { useLocalStorage } from '@subwallet/sub-connect/hooks/useLocalStorage';
 import { Switch } from 'antd';
 import React, { useCallback, useEffect } from 'react';
-import {Outlet, useNavigate, useParams} from 'react-router-dom';
+import {Outlet, useNavigate} from 'react-router-dom';
 
 import WalletHeader from './WalletHeader';
-import {useConnectWallet} from "@subwallet_connect/react";
+import {useAccountCenter, useConnectWallet} from "@subwallet_connect/react";
 
 require('./Layout.scss');
 
 function Layout (): React.ReactElement<null> {
   const [{ wallet}] = useConnectWallet();
-  const [theme, setTheme] = useLocalStorage('sub-wallet-theme', 'dark');
+  const [theme, setTheme] = useLocalStorage('sub-wallet-theme', 'light');
   const navigate = useNavigate();
-
+  const changeAccountCenter = useAccountCenter();
 
   useEffect(() => {
     if (!wallet) {
@@ -28,6 +28,14 @@ function Layout (): React.ReactElement<null> {
 
     document.body.className = isDark ? 'dark-theme' : 'light-theme';
   }, [theme, navigate, wallet]);
+
+  useEffect(() => {
+    changeAccountCenter({
+      position: 'topLeft',
+      expanded: true,
+      minimal: false
+    })
+  }, []);
 
   const _onChangeTheme = useCallback(() => {
     setTheme(theme === 'dark' ? 'light' : 'dark');

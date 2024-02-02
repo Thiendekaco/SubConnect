@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import React from 'react';
-import ReactDOM from 'react-dom';
 import web3Onboard from './web3-onboard'
 import { Web3OnboardProvider } from '@subwallet_connect/react'
 
