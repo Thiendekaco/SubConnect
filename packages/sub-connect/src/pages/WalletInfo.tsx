@@ -6,7 +6,7 @@ import React, {useEffect} from 'react';
 import AccountList from '../components/AccountList';
 import WalletMetadata from '../components/WalletMetadata';
 import {useNavigate} from "react-router-dom";
-import {useConnectWallet} from "@subwallet_connect/react";
+import {useConnectWallet} from "@subwallet-connect/react";
 
 require('./WalletInfo.scss');
 

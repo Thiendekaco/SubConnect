@@ -3,7 +3,7 @@
 
 import { Button } from 'antd';
 import React from 'react';
-import {useConnectWallet} from "@subwallet_connect/react";
+import {useConnectWallet} from "@subwallet-connect/react";
 
 
 

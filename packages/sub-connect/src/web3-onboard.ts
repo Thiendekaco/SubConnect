@@ -1,42 +1,38 @@
 
-import injectedModule from '@subwallet_connect/injected-wallets'
-import { init } from '@subwallet_connect/react'
-import walletConnectModule from '@subwallet_connect/walletconnect'
-import walletConnectPolkadotModule from '@subwallet_connect/walletconnect-polkadot'
-import coinBaseModule from "@subwallet_connect/coinbase"
-import cedeStoreWalletModule from '@subwallet_connect/cede-store'
-import keepkeyModule from "@subwallet_connect/keepkey";
-import ledgerModule from '@subwallet_connect/ledger'
-import ledgerPolkadot from "@subwallet_connect/ledgerpolkadot";
-import blocktoModule from  "@subwallet_connect/blocto"
-import phantomModule from '@subwallet_connect/phantom'
-import tallyHoModule from '@subwallet_connect/tallyho'
-import metamaskSDK from '@subwallet_connect/metamask'
-import infinityWalletModule from '@subwallet_connect/infinity-wallet'
-import trustModule from '@subwallet_connect/trust'
-import sequenceModule from '@subwallet_connect/sequence'
-import {TransactionHandlerReturn} from "@subwallet_connect/core/dist/types";
-import xdefiWalletModule from '@subwallet_connect/xdefi'
-import fortmaticModule from '@subwallet_connect/fortmatic'
-import frameModule from '@subwallet_connect/frame'
-import safeModule from '@subwallet_connect/gnosis'
-import keystoneModule from '@subwallet_connect/keystone'
-import portisModule from '@subwallet_connect/portis'
-import torusModule from '@subwallet_connect/torus'
-import trezorModule from '@subwallet_connect/trezor'
-import coinbaseModule from '@subwallet_connect/coinbase'
-import magicModule from '@subwallet_connect/magic'
-import web3authModule from '@subwallet_connect/web3auth'
-import dcentModule from '@subwallet_connect/dcent'
-import zealModule from '@subwallet_connect/zeal'
-import enkryptModule from '@subwallet_connect/enkrypt'
-import mewWalletModule from '@subwallet_connect/mew-wallet'
-import uauthModule from '@subwallet_connect/uauth'
-import frontierModule from '@subwallet_connect/frontier'
-import arcanaAuthModule from '@subwallet_connect/arcana-auth'
-import venlyModule from '@subwallet_connect/venly'
-import bitgetModule from '@subwallet_connect/bitget'
-import walletLinkModule from "@subwallet_connect/walletlink";
+import injectedModule from '@subwallet-connect/injected-wallets'
+import { init } from '@subwallet-connect/react'
+import walletConnectModule from '@subwallet-connect/walletconnect'
+import walletConnectPolkadotModule from '@subwallet-connect/walletconnect-polkadot'
+import coinBaseModule from "@subwallet-connect/coinbase"
+import cedeStoreWalletModule from '@subwallet-connect/cede-store'
+import keepkeyModule from "@subwallet-connect/keepkey";
+import ledgerModule from '@subwallet-connect/ledger'
+import blocktoModule from  "@subwallet-connect/blocto"
+import phantomModule from '@subwallet-connect/phantom'
+import metamaskSDK from '@subwallet-connect/metamask'
+import infinityWalletModule from '@subwallet-connect/infinity-wallet'
+import trustModule from '@subwallet-connect/trust'
+import sequenceModule from '@subwallet-connect/sequence'
+import {TransactionHandlerReturn} from "@subwallet-connect/core/dist/types";
+import xdefiWalletModule from '@subwallet-connect/xdefi'
+import fortmaticModule from '@subwallet-connect/fortmatic'
+import frameModule from '@subwallet-connect/frame'
+import safeModule from '@subwallet-connect/gnosis'
+import keystoneModule from '@subwallet-connect/keystone'
+import portisModule from '@subwallet-connect/portis'
+import torusModule from '@subwallet-connect/torus'
+import trezorModule from '@subwallet-connect/trezor'
+import coinbaseModule from '@subwallet-connect/coinbase'
+import magicModule from '@subwallet-connect/magic'
+import dcentModule from '@subwallet-connect/dcent'
+import zealModule from '@subwallet-connect/zeal'
+import enkryptModule from '@subwallet-connect/enkrypt'
+import mewWalletModule from '@subwallet-connect/mew-wallet'
+import arcanaAuthModule from '@subwallet-connect/arcana-auth'
+import venlyModule from '@subwallet-connect/venly'
+import openbitModule from '@subwallet-connect/openbit'
+import bitgetModule from '@subwallet-connect/bitget'
+import walletLinkModule from "@subwallet-connect/walletlink";
 
 // Example key • Replace with your infura key
 const INFURA_KEY = '302750fdd8644da3b50aa6daa0b89336'
@@ -44,7 +40,6 @@ const INFURA_KEY = '302750fdd8644da3b50aa6daa0b89336'
 const cedeStore = cedeStoreWalletModule();
 const ledger = ledgerModule({ projectId : '16c6ad72b95e09bfdddfde13bf7f90b4',   walletConnectVersion: 2 })
 const keepkey = keepkeyModule()
-const ledgerPolkadot_ = ledgerPolkadot();
 const coinBase = coinBaseModule()
 const blocto = blocktoModule()
 const xdefi = xdefiWalletModule()
@@ -61,6 +56,7 @@ const injected = injectedModule({
     // mapping of wallet labels to filter here
   }
 })
+const openbit = openbitModule()
 const phantom = phantomModule()
 const walletConnect = walletConnectModule({
   projectId: '9faafb317e7de852a7821e5e3042e804',
@@ -85,19 +81,12 @@ const metamaskSDKWallet = metamaskSDK({
   }
 })
 const trust = trustModule()
-const tallyho = tallyHoModule()
 const infinityWallet = infinityWalletModule()
 const sequence = sequenceModule({
   appName: 'My app'
 })
 const portis = portisModule({
   apiKey: 'b2b7586f-2b1e-4c30-a7fb-c2d1533b153b'
-})
-
-
-const web3auth = web3authModule({
-  clientId:
-    'DJuUOKvmNnlzy6ruVgeWYWIMKLRyYtjYa9Y10VCeJzWZcygDlrYLyXsBQjpJ2hxlBO9dnl8t9GmAC2qOP5vnIGo'
 })
 
 const arcanaAuth = arcanaAuthModule({
@@ -108,7 +97,6 @@ const torus = torusModule()
 const keystone = keystoneModule()
 const safe = safeModule()
 const zeal = zealModule()
-const frontier = frontierModule()
 
 const trezorOptions = {
   email: 'test@test.com',
@@ -118,14 +106,6 @@ const trezorOptions = {
 }
 const trezor = trezorModule(trezorOptions)
 
-const uauthOptions = {
-  clientID: 'a25c3a65-a1f2-46cc-a515-a46fe7acb78c',
-  walletConnectProjectId: 'f6bd6e2911b56f5ac3bc8b2d0e2d7ad5',
-  redirectUri: 'http://localhost:8080/',
-  scope:
-    'openid wallet email:optional humanity_check:optional profile:optional social:optional'
-}
-const uauth = uauthModule(uauthOptions)
 
 const magic = magicModule({
   apiKey: 'pk_live_02207D744E81C2BA'
@@ -162,7 +142,10 @@ export default init({
       enabled: true
     }
   },
-  projectId : '9faafb317e7de852a7821e5e3042e804',
+  wcConfigOption: {
+    projectId : '9faafb317e7de852a7821e5e3042e804',
+  },
+
 
 
   chainsPolkadot:[
@@ -205,6 +188,7 @@ export default init({
     walletConnectPolkadot,
     injected,
     ledger,
+    openbit,
     coinBase,
     trezor,
     walletConnect,
@@ -212,7 +196,6 @@ export default init({
     phantom,
     safe,
     trust,
-    tallyho,
     bitget,
     enkrypt,
     infinityWallet,
@@ -220,17 +203,13 @@ export default init({
     walletLink,
     keepkey,
     keystone,
-    ledgerPolkadot_,
     magic,
     fortmatic,
     portis,
     torus,
     dcent,
     sequence,
-    uauth,
-    web3auth,
     zeal,
-    frontier,
     xdefi,
     frameWallet,
     cedeStore,

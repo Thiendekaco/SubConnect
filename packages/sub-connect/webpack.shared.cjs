@@ -239,6 +239,7 @@ module.exports = (entry, alias = {}, useSplitChunk = false) => {
         https: require.resolve('https-browserify'),
         assert: require.resolve('assert'),
         url: require.resolve('url'),
+        vm: require.resolve("vm-browserify"),
         zlib: false,
       }
     },

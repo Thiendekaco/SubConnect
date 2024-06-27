@@ -7,8 +7,8 @@ import { EditOutlined } from '@ant-design/icons';
 import { Button, message } from 'antd';
 import React, { useCallback } from 'react';
 
-import {useConnectWallet} from "@subwallet_connect/react";
-import {SubstrateProvider} from "@subwallet_connect/common";
+import {useConnectWallet} from "@subwallet-connect/react";
+import {SubstrateProvider} from "@subwallet-connect/common";
 
 require('./AccountList.scss');
 

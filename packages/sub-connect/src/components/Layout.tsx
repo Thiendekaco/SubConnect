@@ -7,7 +7,7 @@ import React, { useCallback, useEffect } from 'react';
 import {Outlet, useNavigate} from 'react-router-dom';
 
 import WalletHeader from './WalletHeader';
-import {useAccountCenter, useConnectWallet} from "@subwallet_connect/react";
+import {useAccountCenter, useConnectWallet} from "@subwallet-connect/react";
 
 require('./Layout.scss');
 

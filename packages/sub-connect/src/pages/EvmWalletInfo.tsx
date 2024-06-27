@@ -6,12 +6,12 @@ import { keccak256 } from '@ethersproject/keccak256';
 import { Maybe } from '@metamask/providers/dist/utils';
 import { METHOD_MAP } from '@subwallet/sub-connect/pages/methods';
 import { Button, Input, message, Select } from 'antd';
-import type  { WalletState }  from '@subwallet_connect/core'
+import type  { WalletState }  from '@subwallet-connect/core'
 // eslint-disable-next-line camelcase
 import { recoverPersonalSignature, recoverTypedSignature, recoverTypedSignature_v4, recoverTypedSignatureLegacy, TypedData, TypedMessage } from 'eth-sig-util';
 import React, { useCallback, useEffect, useState } from 'react';
-import { EIP1193Provider } from '@subwallet_connect/common'
-import {useConnectWallet, useSetChain} from "@subwallet_connect/react";
+import { EIP1193Provider } from '@subwallet-connect/common'
+import {useConnectWallet, useSetChain} from "@subwallet-connect/react";
 import {useNavigate} from "react-router-dom";
 
 
