@@ -1,0 +1,1 @@
+"use strict";(("undefined"!=typeof self?self:this).webpackChunk_subwallet_sub_connect=("undefined"!=typeof self?self:this).webpackChunk_subwallet_sub_connect||[]).push([[2529],{52529:(e,s,t)=>{t.d(s,{take:()=>n.s,takeUntil:()=>u.Q});var n=t(95172),u=t(21762)}}]);
