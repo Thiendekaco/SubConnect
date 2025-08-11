@@ -29,10 +29,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@0xsequence/abi@npm:1.10.15":
-  version: 1.10.15
-  resolution: "@0xsequence/abi@npm:1.10.15"
-  checksum: 691ec0c100b32eaaffa27205b900d1c1070c9bfab34eb714ed4ff38e177affd12579bad260b96431e8cd13b9ae866fbc06908e1bf7dc2fc5db5539586751c854
+"@0xsequence/abi@npm:2.3.23":
+  version: 2.3.23
+  resolution: "@0xsequence/abi@npm:2.3.23"
+  checksum: 4d4fb9fa64df5356de2d938d29ec921536e65283565c3adff1bc032fcb36b20544860c9f00ae63b6c2a6572c408245994847accd900f56f02d63c15f07c91258
   languageName: node
   linkType: hard
 
@@ -84,14 +84,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@0xsequence/core@npm:1.10.15":
-  version: 1.10.15
-  resolution: "@0xsequence/core@npm:1.10.15"
+"@0xsequence/core@npm:2.3.23":
+  version: 2.3.23
+  resolution: "@0xsequence/core@npm:2.3.23"
   dependencies:
-    "@0xsequence/abi": 1.10.15
+    "@0xsequence/abi": 2.3.23
+    "@0xsequence/utils": 2.3.23
   peerDependencies:
-    ethers: ">=5.5"
-  checksum: 69cee73f84d209b107de254bf954d4c7da814745618900a50e025cc83d9721819d9081b2506b76453bea61813be4dddbacf96906c4aec1e7de3cb4f359752246
+    ethers: ">=6"
+  checksum: 4cf94eff74c3f24cefac265c2400d2c211acd49740d0f55c72d57a2a6ed982740f857e3c64daec9c727596e0ad5d43dce9ca6d2a7762657166dd732eda25a804
   languageName: node
   linkType: hard
 
@@ -113,10 +114,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@0xsequence/indexer@npm:1.10.15":
-  version: 1.10.15
-  resolution: "@0xsequence/indexer@npm:1.10.15"
-  checksum: 6466d65106618c54835022638756df61d1825c130d82793a31a89616af604ac29e2fb4e995c3a12ab97f4afec143e47c1ddc301b0dd515db3eaad547cfc10774
+"@0xsequence/indexer@npm:2.3.23":
+  version: 2.3.23
+  resolution: "@0xsequence/indexer@npm:2.3.23"
+  checksum: 4609d6268b846c061f7dce84bc566ca60cd12a76da74c3b91338724fa15031a79a004b471e81918dd7c6617022d96bbbabc0de47747dba7c526511110ab7558d
   languageName: node
   linkType: hard
 
@@ -161,17 +162,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@0xsequence/network@npm:^1.2.9":
-  version: 1.10.15
-  resolution: "@0xsequence/network@npm:1.10.15"
+"@0xsequence/network@npm:^2.3.23":
+  version: 2.3.23
+  resolution: "@0xsequence/network@npm:2.3.23"
   dependencies:
-    "@0xsequence/core": 1.10.15
-    "@0xsequence/indexer": 1.10.15
-    "@0xsequence/relayer": 1.10.15
-    "@0xsequence/utils": 1.10.15
+    "@0xsequence/core": 2.3.23
+    "@0xsequence/indexer": 2.3.23
+    "@0xsequence/relayer": 2.3.23
+    "@0xsequence/utils": 2.3.23
   peerDependencies:
-    ethers: ">=5.5 < 6"
-  checksum: a917a714972de229cce17cb84155edbd03c65cde3af737d603e97673cd8196c1da1acd1fe5dabd7d0b31c4585d10c1ded2dede1746c51bf7f07db9558798bf80
+    ethers: ">=6"
+  checksum: 8b909f561df7d17a3516742478aa090b359aa205116be01fd14960020a6513ffe6ea0bb8b03b9e2842e0d795a4f15c4d48c05ddacf234c3f4af26e4a6148f4f5
   languageName: node
   linkType: hard
 
@@ -195,16 +196,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@0xsequence/relayer@npm:1.10.15":
-  version: 1.10.15
-  resolution: "@0xsequence/relayer@npm:1.10.15"
+"@0xsequence/relayer@npm:2.3.23":
+  version: 2.3.23
+  resolution: "@0xsequence/relayer@npm:2.3.23"
   dependencies:
-    "@0xsequence/abi": 1.10.15
-    "@0xsequence/core": 1.10.15
-    "@0xsequence/utils": 1.10.15
+    "@0xsequence/abi": 2.3.23
+    "@0xsequence/core": 2.3.23
+    "@0xsequence/utils": 2.3.23
   peerDependencies:
-    ethers: ">=5.5 < 6"
-  checksum: 66d586734eecbab9ee5d7dd665a899dfc2617b9d6592215ab972977d95f99b274fd646b5d49ebf2c3db1ebaf0b23bf7c69fc136f76881c431ea003f7ac1c202e
+    ethers: ">=6"
+  checksum: 5bcae53ff49d097d520e3219926703b588f9a808d98ef4bff5a78db4c595a1b0367ddade3d225f0875c3b892a9e32d971f924bdcb1dd4068ab5156c556251a8b
   languageName: node
   linkType: hard
 
@@ -237,14 +238,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@0xsequence/utils@npm:1.10.15":
-  version: 1.10.15
-  resolution: "@0xsequence/utils@npm:1.10.15"
+"@0xsequence/utils@npm:2.3.23":
+  version: 2.3.23
+  resolution: "@0xsequence/utils@npm:2.3.23"
   dependencies:
     js-base64: ^3.7.2
   peerDependencies:
-    ethers: ">=5.5 < 6"
-  checksum: 8bdda2b4cfa2c8ac8d68a2ebc40e6021e405222c1310ec09b748c6c7a2465dcbc121b8d6c716a114c1e77fc976689053955c483bb5fd8795072fe6c8e0bdb5c3
+    ethers: ">=6"
+  checksum: 7134bd6937cecb3d8057ef4da9e804017844379fcf5210ed532ae08da7d3d266dc1e7a1d838c40b596448d18c4f28f8676421c26f7d433210fc06f5441a200bb
   languageName: node
   linkType: hard
 
@@ -9031,7 +9032,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@subwallet/sub-connect@workspace:packages/sub-connect"
   dependencies:
-    "@0xsequence/network": ^1.2.9
+    "@0xsequence/network": ^2.3.23
     "@ant-design/icons": ^5.2.6
     "@ethereumjs/common": ^4.1.0
     "@ethersproject/keccak256": ^5.7.0
@@ -9100,8 +9101,8 @@ __metadata:
     os-browserify: ^0.3.0
     path-browserify: ^1.0.1
     process: ^0.11.10
-    react: ^19.1.1
-    react-dom: ^19.1.1
+    react: ^18.2.0
+    react-dom: ^18.2.0
     react-router-dom: ^7.8.0
     react-scripts: ^5.0.1
     sass-loader: ^16.0.5
@@ -19318,7 +19319,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ethers@npm:5.8.0":
+"ethers@npm:5.8.0, ethers@npm:^5.7.2":
   version: 5.8.0
   resolution: "ethers@npm:5.8.0"
   dependencies:
@@ -29219,17 +29220,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-dom@npm:^19.1.1":
-  version: 19.1.1
-  resolution: "react-dom@npm:19.1.1"
-  dependencies:
-    scheduler: ^0.26.0
-  peerDependencies:
-    react: ^19.1.1
-  checksum: 71d63df955e99bb58470c6ae12ebb82fa80e2a73147c387b73a31c17bcff803ce8aded52ae0c4391c9b413be0aa449249d8be7d063136826d1f0caba9720a907
-  languageName: node
-  linkType: hard
-
 "react-error-overlay@npm:^6.0.11":
   version: 6.1.0
   resolution: "react-error-overlay@npm:6.1.0"
@@ -29451,10 +29441,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react@npm:^19.1.1":
-  version: 19.1.1
-  resolution: "react@npm:19.1.1"
-  checksum: f2f18fea5deac87b1167365bd5160bcba64d383c26a37afa905b714ca424f423ef97d8daf53f041ab9ac25a06357fafcf0b5d3b6b84c9d1eace0e621bfeae629
+"react@npm:^18.2.0":
+  version: 18.3.1
+  resolution: "react@npm:18.3.1"
+  dependencies:
+    loose-envify: ^1.1.0
+  checksum: a27bcfa8ff7c15a1e50244ad0d0c1cb2ad4375eeffefd266a64889beea6f6b64c4966c9b37d14ee32d6c9fcd5aa6ba183b6988167ab4d127d13e7cb5b386a376
   languageName: node
   linkType: hard
 
@@ -30229,6 +30221,7 @@ __metadata:
   resolution: "root-workspace-0b6124@workspace:."
   dependencies:
     "@polkadot/dev": ^0.66.28
+    ethers: ^5.7.2
     gh-pages: ^6.3.0
     jest-environment-jsdom: ^30.0.5
     jest-svg-transformer: ^1.0.0
@@ -30544,13 +30537,6 @@ __metadata:
   dependencies:
     loose-envify: ^1.1.0
   checksum: 3e82d1f419e240ef6219d794ff29c7ee415fbdc19e038f680a10c067108e06284f1847450a210b29bbaf97b9d8a97ced5f624c31c681248ac84c80d56ad5a2c4
-  languageName: node
-  linkType: hard
-
-"scheduler@npm:^0.26.0":
-  version: 0.26.0
-  resolution: "scheduler@npm:0.26.0"
-  checksum: c63a9f1c0e5089b537231cff6c11f75455b5c8625ae09535c1d7cd0a1b0c77ceecdd9f1074e5e063da5d8dc11e73e8033dcac3361791088be08a6e60c0283ed9
   languageName: node
   linkType: hard
 

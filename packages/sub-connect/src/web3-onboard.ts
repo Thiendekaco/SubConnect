@@ -135,11 +135,11 @@ export default init({
   },
   accountCenter: {
     desktop : {
-      enabled: false,
-      minimal : false
+      enabled: true,
+      minimal : true
     },
     mobile: {
-      enabled: false
+      enabled: true
     }
   },
   wcConfigOption: {
