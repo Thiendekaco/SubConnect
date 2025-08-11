@@ -1,8 +1,0 @@
-"use strict";(("undefined"!=typeof self?self:this).webpackChunk_subwallet_sub_connect=("undefined"!=typeof self?self:this).webpackChunk_subwallet_sub_connect||[]).push([[5737],{48118:(e,l,n)=>{n.r(l),n.d(l,{chevronLeftSvg:()=>s});const s=n(94062).JW`<svg fill="none" viewBox="0 0 16 16">
-  <path
-    fill="currentColor"
-    fill-rule="evenodd"
-    d="M11.04 1.46a1 1 0 0 1 0 1.41L5.91 8l5.13 5.13a1 1 0 1 1-1.41 1.41L3.79 8.71a1 1 0 0 1 0-1.42l5.84-5.83a1 1 0 0 1 1.41 0Z"
-    clip-rule="evenodd"
-  />
-</svg>`}}]);
